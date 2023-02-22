@@ -1,5 +1,13 @@
-file(GLOB INCLUDE_FILES "${PROJECT_SOURCE_DIR}/ssigonvif/include/ssigonvif/*.hpp")
-file(GLOB SOURCE_FILES "${PROJECT_SOURCE_DIR}/ssigonvif/src/*.cpp")
+file(
+  GLOB
+  INCLUDE_FILES
+  "${PROJECT_SOURCE_DIR}/ssigonvif/include/ssigonvif/*.hpp"
+)
+file(
+  GLOB
+  SOURCE_FILES
+  "${PROJECT_SOURCE_DIR}/ssigonvif/src/*.cpp"
+)
 
 add_library(ssigonvif ${SOURCE_FILES} ${INCLUDE_FILES})
 target_include_directories(ssigonvif PUBLIC ${PROJECT_SOURCE_DIR}/ssigonvif/include/)

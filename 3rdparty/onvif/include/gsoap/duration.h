@@ -6,14 +6,14 @@
 	- LONG64 is long long int under Unix/Linux
 	- millisecond resolution (1/1000 sec) means 1 second = 1000
 	- when adding to a time_t value, conversion may be needed since time_t
-	  may (or may) not have seconds resolution
+		may (or may) not have seconds resolution
 	- durations longer than a month are always output in days, rather than
-	  months to avoid days-per-month conversion inacurracies
+		months to avoid days-per-month conversion inacurracies
 	- durations expressed in years and months are not well defined, since
-	  there is no reference starting time; the decoder assumes 30 days per
-	  month and conversion of P4M gives 120 days and therefore the duration
-	  P4M and P120D are assumed identical, while they should give different
-	  results depending on the reference starting time
+		there is no reference starting time; the decoder assumes 30 days per
+		month and conversion of P4M gives 120 days and therefore the duration
+		P4M and P120D are assumed identical, while they should give different
+		results depending on the reference starting time
 
 	#import this file into your gSOAP .h file
 
