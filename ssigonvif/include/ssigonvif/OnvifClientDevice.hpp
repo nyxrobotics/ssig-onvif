@@ -7,11 +7,11 @@
 #include <openssl/rsa.h>
 #include <stdexcept>
 #include <vector>
- 
+
 #include "onvif/soapDeviceBindingProxy.h"
 
-
-class OnvifClientDevice{
+class OnvifClientDevice
+{
 public:
 	OnvifClientDevice();
 	OnvifClientDevice(std::string url, std::string user, std::string password);
@@ -20,7 +20,6 @@ public:
 public:
 	void getUsers();
 	std::vector<std::string> getUsernames();
-
 
 public:
 	bool _hasMedia;
@@ -33,17 +32,9 @@ protected:
 
 	std::vector<std::string> _username;
 
-	struct soap *soap;
+	struct soap* soap;
 
 	DeviceBindingProxy proxyDevice;
 };
 
 #endif
-
-
-
-
-
-
-
-
