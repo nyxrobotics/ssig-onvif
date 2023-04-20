@@ -129,18 +129,18 @@ endif()
 ###############################################################################
 # CMake Auxiliary Files
 ###############################################################################
-include(cmake/SSIGOnvifOpenSSLUtil.cmake)
-include(cmake/SSIGOnvifUtil.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/SSIGOnvifOpenSSLUtil.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/SSIGOnvifUtil.cmake)
 
 ###############################################################################
 # SUBDIRECTORIES
 ###############################################################################
 
 #Add 3rdparty
-add_subdirectory(3rdparty)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/3rdparty)
 
 # Add modules
-add_subdirectory(ssigonvif)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/ssigonvif)
 
 # Add documentation
-add_subdirectory(samples)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/samples)
