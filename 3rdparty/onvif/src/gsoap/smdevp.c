@@ -434,12 +434,20 @@ int soap_smd_init(struct soap* soap, struct soap_smd_data* data, int alg, const 
   /* allocate and init the OpenSSL HMAC or EVP_MD context */
   if ((alg & SOAP_SMD_ALGO) == SOAP_SMD_HMAC)
   {
+#if OPENSSL_VERSION_NUMBER >= 0x1010000fL
+    data->ctx = HMAC_CTX_new();
+#else
     data->ctx = (void*)SOAP_MALLOC(soap, sizeof(HMAC_CTX));
     HMAC_CTX_init((HMAC_CTX*)data->ctx);
+#endif
   }
   else
   {
+#if OPENSSL_VERSION_NUMBER >= 0x1010000fL
+    data->ctx = EVP_MD_CTX_new();
+#else
     data->ctx = (void*)SOAP_MALLOC(soap, sizeof(EVP_MD_CTX));
+#endif
     EVP_MD_CTX_init((EVP_MD_CTX*)data->ctx);
   }
   DBGLOG(TEST, SOAP_MESSAGE(fdebug, "-- SMD Init alg=%x (%p) --\n", alg, data->ctx));
@@ -541,7 +549,11 @@ int soap_smd_final(struct soap* soap, struct soap_smd_data* data, char* buf, int
     {
       case SOAP_SMD_HMAC:
         HMAC_Final((HMAC_CTX*)data->ctx, (unsigned char*)buf, &n);
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+        HMAC_CTX_free((HMAC_CTX*)data->ctx);
+#else
         HMAC_CTX_cleanup((HMAC_CTX*)data->ctx);
+#endif
         break;
       case SOAP_SMD_DGST:
         EVP_DigestFinal((EVP_MD_CTX*)data->ctx, (unsigned char*)buf, &n);
@@ -600,9 +612,21 @@ static int soap_smd_check(struct soap* soap, struct soap_smd_data* data, int err
     if (data->ctx)
     {
       if ((data->alg & SOAP_SMD_ALGO) == SOAP_SMD_HMAC)
+      {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+        HMAC_CTX_free((HMAC_CTX*)data->ctx);
+#else
         HMAC_CTX_cleanup((HMAC_CTX*)data->ctx);
+#endif
+      }
       else
+      {
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+        EVP_MD_CTX_free((EVP_MD_CTX*)data->ctx);
+#else
         EVP_MD_CTX_cleanup((EVP_MD_CTX*)data->ctx);
+#endif
+      }
       SOAP_FREE(soap, data->ctx);
       data->ctx = NULL;
     }
