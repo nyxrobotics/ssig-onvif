@@ -149,7 +149,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/cmake/SSIGOnvifUtil.cmake)
 ###############################################################################
 
 #Add 3rdparty
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/3rdparty)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/3rdparty/onvif)
 
 # Add modules
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/ssigonvif)
