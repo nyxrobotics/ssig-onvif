@@ -27,7 +27,19 @@ option(BUILD_APPS "Build APP's" ON)
 
 # BUILD_SHARED_LIBS is a standard CMake variable, but we declare it here to
 # make it prominent in the GUI.
-option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." ON)
+option(
+  BUILD_SHARED_LIBS
+  "Build shared libraries (DLLs)."
+  ON
+)
+if(BUILD_SHARED_LIBS)
+  option(
+    CMAKE_POSITION_INDEPENDENT_CODE
+    "Build shared libraries (DLLs)."
+    ON
+  )
+endif()
+
 
 #Option to check if 'docs' will be build
 # option(BUILD_DOCS "Create and install the HTML based API documentation (requires Doxygen)" OFF)
