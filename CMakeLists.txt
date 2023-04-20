@@ -49,6 +49,14 @@ option(
   "Build shared libraries (DLLs)."
   ON
 )
+if(BUILD_SHARED_LIBS)
+  option(
+    CMAKE_POSITION_INDEPENDENT_CODE
+    "Build shared libraries (DLLs)."
+    ON
+  )
+endif()
+
 
 #Option to check if 'docs' will be build
 # option(BUILD_DOCS "Create and install the HTML based API documentation (requires Doxygen)" OFF)
