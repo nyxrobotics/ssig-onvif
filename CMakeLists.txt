@@ -27,7 +27,19 @@ option(BUILD_APPS "Build APP's" ON)
 
 # BUILD_SHARED_LIBS is a standard CMake variable, but we declare it here to
 # make it prominent in the GUI.
-option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." ON)
+option(
+  BUILD_SHARED_LIBS
+  "Build shared libraries (DLLs)."
+  ON
+)
+if(BUILD_SHARED_LIBS)
+  option(
+    CMAKE_POSITION_INDEPENDENT_CODE
+    "Build shared libraries (DLLs)."
+    ON
+  )
+endif()
+
 
 #Option to check if 'docs' will be build
 # option(BUILD_DOCS "Create and install the HTML based API documentation (requires Doxygen)" OFF)
@@ -129,18 +141,18 @@ endif()
 ###############################################################################
 # CMake Auxiliary Files
 ###############################################################################
-include(cmake/SSIGOnvifOpenSSLUtil.cmake)
-include(cmake/SSIGOnvifUtil.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/SSIGOnvifOpenSSLUtil.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/SSIGOnvifUtil.cmake)
 
 ###############################################################################
 # SUBDIRECTORIES
 ###############################################################################
 
 #Add 3rdparty
-add_subdirectory(3rdparty)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/3rdparty/onvif)
 
 # Add modules
-add_subdirectory(ssigonvif)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/ssigonvif)
 
 # Add documentation
-add_subdirectory(samples)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/samples)
